@@ -1,48 +1,48 @@
-<% provide(:title, 'All Users') %>
-<h1>ユーザー一覧</h1>
+<% provide(:title, @title) %>
+<% provide(:button_text, '更新') %>
 
-<div class="col-md-10 col-md-offset-1">
-  <%= will_paginate %>
-  <table class="table table-condensed table-hover" id="table-users">
-    <thead>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-        <th class="center"><%= User.human_attribute_name :department %></th>
-        <% if current_user.admin? %>
-          <th class="center"><%= User.human_attribute_name :basic_time %></th>
-          <th class="center"><%= User.human_attribute_name :work_time %></th>
-          <th></th>
-        <% end %>
-      </tr>
-    </thead>
+<h1><%= @title %></h1>
 
-    <% @users.each do |user| %>
-      <tr>
-        <td>
-          <% if current_user.admin? %>
-            <%= link_to user.name, user %>
-          <% else %>
-            <%= user.name %>
-          <% end %>
-        </td>
-        <td class="center"><%= user.department.present? ? user.department : "未所属" %></td>
-        <% if current_user.admin? %>
-          <td class="center"><%= format_basic_info(user.basic_time) %></td>
-          <td class="center"><%= format_basic_info(user.work_time) %></td>
-        <% end %>
-        <td class="center">
-          <% if current_user.admin? && !current_user?(user) %>
-            <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %>
-            <%= link_to "削除", user, method: :delete,
-                data: { confirm: "削除してよろしいですか？" },
-                class: "btn btn-danger" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+<%#= form_tag import_users_path, multipart: true, class: "user-import" do %>
+  <%#= file_field_tag :file %>
+  <%#= submit_tag "インポート", class: "btn btn-primary" %>
+<%# end %>
+
+<!--<div class="search_form">-->
+<!--  <%#= render 'users/search_form' %>-->
+<!--</div>-->
+
+
   <%= will_paginate %>
-</div>
+<% unless @users.empty? %>
+  <ul class="users">
+    <li>
+      <% @users.each do |user| %>
+        <%= user.name %>
+        <% if current_user.admin? %><br>
+          <% if !current_user?(user) %>
+           | <%= link_to "削除", user, method: :delete, data: { confirm: "削除してよろしいですか？" },class: "btn btn-primary" %><br>
+          <% end %>
+          <div class="userslist">
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapse<%= user.id %>">編集</a>
+            <div class="collapse" id="collapse<%= user.id %>">
+              <div class="panel-body">
+                <%#= render "user",user: user %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </li>
+  </ul>
+<% else %>
+  <p class="search">
+    ユーザーが見つかりませんでした。<br>
+    探しているユーザー名を確認してください。
+  </p>
+<% end %>
+  <%= will_paginate %>
+
 
 <!--モーダルウィンドウ表示-->
 <div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

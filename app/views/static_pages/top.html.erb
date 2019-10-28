@@ -2,7 +2,10 @@
 <div class="center jumbotron">
   <h1>勤怠システム</h1>
   <% if logged_in? %>
-    
+    <% if current_user.admin? %>
+      <%= link_to "ログイン", login_path,  class: "btn btn-primary disabled", tabindex: "-1" %>
+    <h2>アカウント作成は<%= link_to "こちら", signup_path, class: "square_btn1" %>から</h2>
+    <% end %>
   <% else %>
     <%= link_to "ログイン", login_path,  class: "btn btn-primary" %>
     <h2>アカウント作成は<%= link_to "こちら", signup_path, class: "square_btn1" %>から</h2>

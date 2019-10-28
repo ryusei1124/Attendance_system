@@ -6,7 +6,6 @@
 
 // ユーザー情報下ボタン
 .btn-users-show{
-  margin-top: -10px;
   margin-bottom: 10px;
 }
 
@@ -44,10 +43,27 @@
 }
 
 // ユーザー一覧
-#table-users{
-  td{
-    vertical-align: middle;
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
   }
+}
+
+/* ユーザー一覧編集 */
+.userslist {
+  padding: 10px;
+  margin-bottom: 10px;
+  color: inherit;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+.table-bordered{
+  margin: 10px 0;
 }
 
 /* 基本情報編集モーダルウインドウ */
