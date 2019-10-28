@@ -68,6 +68,21 @@ p {
   text-decoration: none;
 }
 
+.header-name{
+  float: left;
+  font-size: 16px;
+  margin-top: 15px;
+  // .superior{
+  // color: #FF0;
+  // }
+  .user{
+    color: #33FFCC;
+  }
+  .admin{
+    color: #F00;
+  }
+}
+
 /* debug */
 
 .debug_dump {
