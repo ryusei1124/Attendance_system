@@ -9,6 +9,15 @@ User.create!(name: "sample user",
              uid: "aaa",
              admin: true)
              
+User.create!(name: "上長A",
+             email: "sample0@email.com",
+             password: "password",
+             password_confirmation: "password",
+             affiliation: "上長",
+             employee_number: "000",
+             uid: "zzz",
+             superior: true)
+             
 60.times do |n|
   name = Faker::Name.name
   email = "sample-#{n+1}@email.com"

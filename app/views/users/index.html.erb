@@ -4,45 +4,47 @@
 <h1><%= @title %></h1>
 
 <div class="col-md-10 col-md-offset-1">
-<%= form_tag import_users_path, multipart: true, class: "user-import" do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "インポート", class: "btn btn-primary" %>
-<% end %>
-
-<div class="search_form">
-  <%= render 'users/search_form' %>
-</div>
-
-
-<%= will_paginate %>
-
-<% unless @users.empty? %>
-  <ul class="users">
-    <li>
-      <% @users.each do |user| %>
-        <%= user.name %>
-        <% if current_user.admin? %><br>
-          <% if !current_user?(user) %>
-           | <%= link_to "削除", user, method: :delete, data: { confirm: "削除してよろしいですか？" },class: "btn btn-primary" %><br>
-          <% end %>
-          <div class="userslist">
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapse<%= user.id %>">編集</a>
-            <div class="collapse" id="collapse<%= user.id %>">
-              <div class="panel-body">
-                <%= render "user",user: user %>
+  <div>
+    <%= form_tag import_users_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "インポート", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  
+  <div class="search_form">
+    <%= render 'users/search_form' %>
+  </div>
+  
+  
+  <%= will_paginate %>
+  
+  <% unless @users.empty? %>
+    <ul class="users">
+      <li>
+        <% @users.each do |user| %>
+          <%= user.name %>
+          <% if current_user.admin? %><br>
+            <% if !current_user?(user) %>
+             | <%= link_to "削除", user, method: :delete, data: { confirm: "削除してよろしいですか？" },class: "btn btn-primary" %><br>
+            <% end %>
+            <div class="userslist">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapse<%= user.id %>">編集</a>
+              <div class="collapse" id="collapse<%= user.id %>">
+                <div class="panel-body">
+                  <%= render "user",user: user %>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </li>
-  </ul>
-<% else %>
-  <p class="search">
-    ユーザーが見つかりませんでした。<br>
-    探しているユーザー名を確認してください。
-  </p>
-<% end %>
-
-<%= will_paginate %>
+      </li>
+    </ul>
+  <% else %>
+    <p class="search">
+      ユーザーが見つかりませんでした。<br>
+      探しているユーザー名を確認してください。
+    </p>
+  <% end %>
+  
+  <%= will_paginate %>
 </div>

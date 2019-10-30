@@ -98,4 +98,5 @@ class UsersController < ApplicationController
     def admin_hidden
       redirect_to(root_url) if current_user.admin?
     end
+    
 end
