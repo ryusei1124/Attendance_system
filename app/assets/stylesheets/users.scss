@@ -46,10 +46,15 @@
 .users {
   list-style: none;
   margin: 0;
+  padding-right: 40px;
   li {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid #eaeaea;
+  }
+  .user-update-btn{
+    margin-top: 10px;
+    width: 100%;
   }
 }
 
