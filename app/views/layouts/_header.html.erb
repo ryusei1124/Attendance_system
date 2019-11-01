@@ -7,10 +7,10 @@
           <div class="header-name">
             <div class="admin">Admin</div>
           </div>
-        <%# elsif current_user.superior? %>
-          <!--<div class="header-name">-->
-          <!--  <div class="superior">Superior</div>-->
-          <!--</div>-->
+        <% elsif current_user.superior? %>
+          <div class="header-name">
+            <div class="superior">Superior</div>
+          </div>
         <% else %>
           <div class="header-name">
             <div class="user">User</div>
@@ -23,7 +23,7 @@
           <% if current_user.admin? %>
             <li><%= link_to "ユーザー一覧", users_path %></li>
             <li><%= link_to "出勤中社員一覧", "#" %></li>
-            <li><%= link_to "拠点情報一覧", "#" %></li>
+            <li><%= link_to "拠点情報一覧", bases_path %></li>
             <li><%= link_to "基本情報編集", "#" %></li>
           <% end %>
           <li class="dropdown">
