@@ -77,6 +77,20 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
+  def on_duty
+    @working_users = []
+    @working_employee_number = []
+    User.all.each do |user|
+      if user.attendances.any?{|day| ( day.worked_on == Date.today && !day.started_at.blank? && day.finished_at.blank? )}
+        @working_users.push(user.name)
+        @working_employee_number.push(user.employee_number)
+      end
+    end
+  end
+  
+  def edit_basic_info
+  end
+  
   private
   
     def user_params
