@@ -9,6 +9,9 @@ class Attendance < ApplicationRecord
   # 出勤・退勤時間どちらも存在するとき、出勤時間より早い退勤時間は無効
   validate :started_at_than_finished_at_fast_if_invalid
   
+  # 翌日チェックボックスのみでの更新は禁止
+  validate :non_tomorrow_input_to_other
+  
   def finished_at_is_invalid_without_a_started_at
     errors.add(:started_at, "が必要です。") if started_at.blank? && finished_at.present?
   end
@@ -17,5 +20,9 @@ class Attendance < ApplicationRecord
     if started_at.present? && finished_at.present?
       errors.add(:started_at, "より早い退勤時間は無効です") if started_at > finished_at
     end
+  end
+  
+  def non_tomorrow_input_to_other
+    errors.add(:tomorrow, "だけでは更新できません") if started_at.blank? && finished_at.blank? && tomorrow.present?
   end
 end
