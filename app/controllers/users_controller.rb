@@ -13,6 +13,12 @@ class UsersController < ApplicationController
   
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
+    respond_to do |format|
+      format.html
+      format.csv do 
+        send_data render_to_string, filename: "#{@user.name}.csv", type: :csv
+      end
+    end
   end
   
   def create
